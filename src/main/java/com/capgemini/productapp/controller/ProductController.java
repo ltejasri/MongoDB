@@ -1,6 +1,8 @@
 
 package com.capgemini.productapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.productapp.entity.Product;
@@ -72,5 +75,28 @@ public class ProductController {
 		}		
 		return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
 	}
+	@GetMapping("/product/{productName}")
+	public ResponseEntity<List<Product>> findProductByName(@PathVariable String productName){
+		return new ResponseEntity<List<Product>> (productService.findProductByName(productName),HttpStatus.OK);
+	}
+
+	@GetMapping("/product")
+	public ResponseEntity<List<Product>> findProductByPrice(){
+		return new ResponseEntity<List<Product>> (productService.findProductByPrice(),HttpStatus.OK);
+	}
+	@GetMapping("/productCat/{productCategory}")
+	public ResponseEntity<List<Product>> findProductByCategoryAndPrice(@PathVariable String productCategory){
+		return new ResponseEntity<List<Product>> (productService.findProductByCategoryAndPrice(productCategory),HttpStatus.OK);
+	}
 	
+	@GetMapping("/productPrice")
+	public ResponseEntity<List<Product>> findProductByInterval(){
+		return new ResponseEntity<List<Product>> (productService.findByInterval(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/priceInterval")
+	public ResponseEntity<List<Product>> findByInterval(@RequestParam double upperbound,double lowerbound){
+		return new ResponseEntity<List<Product>> (productService.findByPriceInterval(upperbound, lowerbound),HttpStatus.OK);
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.capgemini.productapp.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,30 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.delete(product);
 	}
 
+	@Override
+	public List<Product> findProductByName(String ProductName) {
+		return productRepository.findByProductName(ProductName);
+	}
+
+	@Override
+	public List<Product> findProductByPrice() {
+		
+		return productRepository.findByProductPrice();
+	}
+
+	@Override
+	public List<Product> findProductByCategoryAndPrice(String productCategory) {
+		return productRepository.findByCategoryAndPrice(productCategory);
+	}
+
+	@Override
+	public List<Product> findByInterval() {
+		return productRepository.findByPriceInterval();
+	}
+
+	@Override
+	public List<Product> findByPriceInterval(double upperbound, double lowerbound) {
+		return productRepository.findProductByPriceInterval(upperbound, lowerbound);
+	}
 }
 
